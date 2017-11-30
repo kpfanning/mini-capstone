@@ -2,20 +2,22 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :price, numericality: { greater_than: 0 }
 
- # def is_discounted
-    
- # end
+  has_many :orders
+  belongs_to :supplier
+  # def supplier
+  #   Supplier.find_by(id: self.supplier_id)
+  # end
 
   def as_json
-  {
-  id: 3,
-  name: name,
-  price: price,
-  image: "",
-  description: description,
-  created_at: created_at,
-  updated_at: updated_at
-  }
+    {
+      id: id,
+      name: name,
+      price: price,
+      description: description,
+      created_at: created_at,
+      updated_at: updated_at,
+      supplier_id: supplier.as_json
+    }
   end
 
     
